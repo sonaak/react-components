@@ -50,7 +50,7 @@ div.sonaak-text-input input ~ div.active-label {
   margin-top: 0;
   color: RGBA(120, 180, 200, 0.8);
   overflow: hidden;
-  transition: height .1s ease-out .1s;
+  transition: height .1s ease-out .1s, margin-bottom .1 ease-out .1;
   height: .7em;
   margin-bottom: -.7em;
 }
