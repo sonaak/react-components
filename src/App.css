@@ -1,24 +1,70 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+div.sonaak-text-input {
+  font-size: 2em;
+  font-family: inherit;
+}
+
+div.sonaak-text-input input {
+  font-size: inherit;
+  border: 0px;
+  outline-width: 0;
+  width: 100%;
+  background-color: transparent;
+}
+
+div.sonaak-text-input input + div.line {
+  width: 0%;
+  height: 1px;
+  line-height: 1px;
+  border-top: 1px solid RGB(120, 180, 200);
+  margin-left: auto;
+  margin-right: auto;
+  transition: width .3s;
+}
+
+div.sonaak-text-input div.label {
+  margin-bottom: -1.24em;
+  margin-left: 0;
+  color: RGBA(120, 120, 120, .8);
+  overflow: hidden;
+  line-height: inherit;
+  font-size: inherit;
+  transition: color .3s ease-out .1s, height .1 ease-out .1s, margin-bottom .1 ease-out .1;
+  z-index: -1;
+}
+
+div.sonaak-text-input div.label.hidden {
+  margin-bottom: .1em;
+  height: 0;
+  overflow: hidden;
+}
+
+div.sonaak-text-input input ~ div.active-label {
+  font-size: .5em;
+  line-height: .7em;
+  padding-left: .1em;
+  margin-top: 0;
+  color: RGBA(120, 180, 200, 0.8);
+  overflow: hidden;
+  transition: height .1s ease-out .1s;
+  height: .7em;
+  margin-bottom: -.7em;
+}
+
+div.sonaak-text-input input ~ div.active-label.hidden {
+  height: 0;
+  margin-bottom: 0;
+}
+
+div.sonaak-text-input input:focus + div.line {
+  width: 100%;
+}
+
+
+div.sonaak-text-input div.label.focused {
+  color: RGBA(120, 120, 120, .1);
 }
