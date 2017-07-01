@@ -6,6 +6,7 @@
 div.sonaak-text-input {
   font-size: 2em;
   font-family: inherit;
+  margin-bottom: 1em;
 }
 
 div.sonaak-text-input input {
@@ -45,14 +46,14 @@ div.sonaak-text-input div.label.hidden {
 
 div.sonaak-text-input input ~ div.active-label {
   font-size: .5em;
-  line-height: .7em;
+  line-height: .9em;
   padding-left: .1em;
   margin-top: 0;
   color: RGBA(120, 180, 200, 0.8);
   overflow: hidden;
   transition: height .1s ease-out .1s, margin-bottom .1 ease-out .1;
-  height: .7em;
-  margin-bottom: -.7em;
+  height: 1em;
+  margin-bottom: -.99em;
 }
 
 div.sonaak-text-input input ~ div.active-label.hidden {
