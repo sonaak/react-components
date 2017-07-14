@@ -1,30 +1,108 @@
 import React, { Component } from 'react';
-import IoIosEyeOutline from 'react-icons/lib/io/ios-eye-outline';
+import IoEye from 'react-icons/lib/io/eye';
+import IoEyeDisabled from 'react-icons/lib/io/eye-disabled';
 import './App.css';
 
-class Toggle extends Component {
+class On extends Component {
   constructor(props) {
     super(props);
-    this.props = props;
-
-    const states = Object.keys(props.map || {});
-    const activeState = props.default || states[0];
-
-    this.state = {
-      active: activeState,
-    }
+    this.class = props.render;
+    this.childProps = Object.assign({}, {}, props);
+    delete this.childProps["render"];
+    delete this.childProps["turnOff"];
   }
 
   render() {
-    const activeComponent = (this.props.map || {})[this.state.active] || {};
-    const component = activeComponent.component || null;
-    const props = activeComponent.props || null;
+    return (
+      <div onClick={this.props.turnOff}>
+        {React.createElement(this.class, this.childProps)}
+      </div>
+    );
+  }
+}
+
+class Off extends On {
+  constructor(props) {
+    super(props);
+    delete this.childProps["turnOn"];
+    this.props = props;
+  }
+
+  render() {
+    return (
+      <div onClick={this.props.turnOn}>
+        {React.createElement(this.class, this.childProps)}
+      </div>
+    );
+  }
+}
+
+/*
+ * We want to be able to do something like
+ * <Toggle>
+ *   <On class={ClassA} ...props />
+ *   <Off class={ClassB} ...props />
+ * </Toggle>
+ */
+class StaticToggle extends Component {
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.onToggle = this.props.onToggle || function(){};
+
+    this.state = {
+      isOn: this.props.isOn
+    };
+
+    this.childNodes = {
+      "on": null,
+      "off": null
+    };
+
+    if (props.children.length && props.children.length >= 2) {
+      props.children.forEach((child) =>
+        this.setChildNode(child, this.childNodes));
+    } else {
+      let child = props.children;
+      this.setChildNode(child, this.childNodes);
+    }
+  }
+
+  setChildNode(child, childNodes) {
+    const turnOff = this.turnOff.bind(this);
+    const turnOn = this.turnOn.bind(this);
+
+    if (child.type.name === "On") {
+      childNodes["on"] = React.cloneElement(child, {turnOff: turnOff});
+    } else if (child.type.name === "Off") {
+      childNodes["off"] = React.cloneElement(child, {turnOn: turnOn});
+    } else {
+      console.warn("Only objects <On .../> or <Off ... /> are rendered.");
+    }
+  }
+
+  turnOn() {
+    this.setState({
+      "isOn": true
+    });
+
+    this.onToggle(this, true);
+  }
+
+  turnOff() {
+    this.setState({
+      "isOn": false
+    });
+
+    this.onToggle(this, false);
+  }
+
+  render() {
     return (
       <div className="sonaak-toggle">
-        { component ? component(...props) : null }
-        <IoIosEyeOutline size="100%" style={{
-          opacity: .2
-        }}/>
+        {
+          this.state.isOn ? this.childNodes["on"] : this.childNodes["off"]
+        }
       </div>
     )
   }
@@ -34,7 +112,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Toggle />
+        <StaticToggle isOn={true}>
+          <On render={IoEye} style={{
+            width: "5em",
+            height: "5em"
+          }}/>
+          <Off render={IoEyeDisabled} style={{
+            width: "5em",
+            height: "5em"
+          }}/>
+        </StaticToggle>
       </div>
     );
   }
