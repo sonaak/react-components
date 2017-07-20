@@ -69,3 +69,27 @@ div.sonaak-text-input input:focus + div.line {
 div.sonaak-text-input div.label.focused {
   color: RGBA(120, 120, 120, .1);
 }
+
+div.sonaak-text-password {
+  display: flex;
+}
+
+div.sonaak-text-password .sonaak-toggle {
+  flex: 0 0 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.8em;
+  padding: 0 .5em;
+  opacity: .2;
+
+  transition: opacity .3s ease-out .1s;
+}
+
+div.sonaak-text-password .sonaak-toggle:hover {
+  opacity: .8;
+}
+
+div.sonaak-text-password > .sonaak-text-input {
+  flex-grow: 1;
+}

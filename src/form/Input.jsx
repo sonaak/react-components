@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { StaticToggle, On, Off } from './Toggle.jsx';
+import IoEye from 'react-icons/lib/io/eye';
+import IoEyeDisabled from 'react-icons/lib/io/eye-disabled';
+
 
 function handleBlur() {
   this.setState({
@@ -85,6 +89,13 @@ class Password extends Component {
     this.onChange = handleChange.bind(this);
     this.onFocus = handleFocus.bind(this);
     this.onBlur = handleBlur.bind(this);
+    this.toggleRedacted = this.toggleRedacted.bind(this);
+  }
+
+  toggleRedacted(redacted) {
+    this.setState({
+      redacted: redacted
+    });
   }
 
   render() {
@@ -95,22 +106,41 @@ class Password extends Component {
       (this.state.value === "" ? " hidden" : "");
 
     return (
-      <div className="sonaak-text-input">
-        <div className={labelClassName}>
-          {this.state.label}
-        </div>
-        <input
-          type="password"
-          onChange={this.onChange}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          value={this.state.value}
-        />
-        <div className="line"></div>
-        <div
-          className={activeLabelClassName}
+      <div className="sonaak-text-password">
+        <StaticToggle
+          isOn={this.state.redacted}
+          onToggle={(target, redacted) => {
+            this.toggleRedacted(redacted);
+          }}
         >
-          {this.state.label}
+          <On
+            render={IoEyeDisabled}
+            style={{cursor:"pointer"}}
+            className="sonaak-toggle-on sonaak-toggle-icons"
+          />
+          <Off
+            render={IoEye}
+            style={{cursor:"pointer"}}
+            className="sonaak-toggle-off sonaak-toggle-icons"
+          />
+        </StaticToggle>
+        <div className="sonaak-text-input">
+          <div className={labelClassName}>
+            {this.state.label}
+          </div>
+          <input
+            type={this.state.redacted? "password" : "text"}
+            onChange={this.onChange}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            value={this.state.value}
+          />
+          <div className="line"></div>
+          <div
+            className={activeLabelClassName}
+          >
+            {this.state.label}
+          </div>
         </div>
       </div>
     );

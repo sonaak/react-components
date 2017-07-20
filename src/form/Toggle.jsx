@@ -11,7 +11,7 @@ class On extends Component {
 
   render() {
     return (
-      <div onClick={this.props.turnOff}>
+      <div onClick={this.props.turnOff} className="toggle-icon-container">
         {React.createElement(this.class, this.childProps)}
       </div>
     );
@@ -95,8 +95,11 @@ class StaticToggle extends Component {
   }
 
   render() {
+    const classNames = this.props.className ?
+      "sonaak-toggle " + this.props.className : "sonaak-toggle";
+
     return (
-      <div className="sonaak-toggle">
+      <div className={classNames}>
         {
           this.state.isOn ? this.childNodes["on"] : this.childNodes["off"]
         }
