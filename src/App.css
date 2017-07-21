@@ -44,6 +44,7 @@ div.sonaak-text-input div.label {
   font-size: inherit;
   transition: color .3s ease-out .1s, height .1 ease-out .1s, margin-bottom .1 ease-out .1;
   z-index: -1;
+  user-select: none;
 }
 
 div.sonaak-text-input div.label.hidden {
@@ -62,6 +63,7 @@ div.sonaak-text-input input ~ div.active-label {
   transition: height .1s ease-out .1s, margin-bottom .1 ease-out .1;
   height: 1em;
   margin-bottom: -.99em;
+  user-select: none;
 }
 
 div.sonaak-text-input input ~ div.active-label.error {

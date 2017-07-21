@@ -99,7 +99,8 @@ class Password extends Component {
       value: "",
       label: props.label,
       redacted: true,
-      focused: false
+      focused: false,
+      notification: props.notification
     }
 
     this.onChange = handleChange.bind(this);
@@ -115,15 +116,30 @@ class Password extends Component {
   }
 
   render() {
+    const containerClasses = ["sonaak-text-input"];
     const labelClassName = "label" +
       (this.state.focused? " focused" : "") +
       (this.state.value === "" ? "" : " hidden");
-    const activeLabelClassName = "active-label" +
-      (this.state.value === "" ? " hidden" : "");
+    const activeLabelClasses = ["active-label"];
+    const labels = [this.state.label];
+
+    if (this.state.value === "" && !this.state.notification) {
+      activeLabelClasses.push("hidden");
+    }
+
+    if (this.state.notification) {
+      containerClasses.push(this.state.notification.type);
+      activeLabelClasses.push(this.state.notification.type);
+      labels.push(this.state.notification.message);
+    }
+
+    const containerClassName = containerClasses.join(" ");
+    const activeLabelClassName = activeLabelClasses.join(" ");
+    const labelText = labels.join(" - ");
 
     return (
       <div className="sonaak-text-password">
-        <div className="sonaak-text-input">
+        <div className={containerClassName}>
           <div className={labelClassName}>
             {this.state.label}
           </div>
@@ -138,7 +154,7 @@ class Password extends Component {
           <div
             className={activeLabelClassName}
           >
-            {this.state.label}
+            {labelText}
           </div>
         </div>
         <StaticToggle
