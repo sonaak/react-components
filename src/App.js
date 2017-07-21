@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Password } from './form/Input.jsx';
+import { Input } from './form/Input.jsx';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Password label="password" />
+        <Input
+          label="username"
+          notification={{
+            type: "error",
+            message: "The login name/password is not found in our system"
+          }}
+        />
       </div>
     );
   }
