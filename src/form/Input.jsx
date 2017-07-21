@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StaticToggle, On, Off } from './Toggle.jsx';
 import IoEye from 'react-icons/lib/io/eye';
 import IoEyeDisabled from 'react-icons/lib/io/eye-disabled';
+import './Input.css';
 
 
 function handleBlur() {
